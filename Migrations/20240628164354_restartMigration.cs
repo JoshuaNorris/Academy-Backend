@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AcademyApi.Migrations
 {
     /// <inheritdoc />
-    public partial class RestartingDB : Migration
+    public partial class restartMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -46,13 +46,15 @@ namespace AcademyApi.Migrations
                 name: "Books",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "varchar", maxLength: 255, nullable: false),
                     AuthorId = table.Column<int>(type: "integer", nullable: false),
                     Description = table.Column<string>(type: "varchar", maxLength: 2000, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Books", x => x.Title);
+                    table.PrimaryKey("PK_Books", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Books_Authors_AuthorId",
                         column: x => x.AuthorId,
@@ -68,16 +70,16 @@ namespace AcademyApi.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserEmail = table.Column<string>(type: "varchar", nullable: false),
-                    BookTitle = table.Column<string>(type: "varchar", nullable: false)
+                    BookId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserToBooks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserToBooks_Books_BookTitle",
-                        column: x => x.BookTitle,
+                        name: "FK_UserToBooks_Books_BookId",
+                        column: x => x.BookId,
                         principalTable: "Books",
-                        principalColumn: "Title",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserToBooks_Users_UserEmail",
@@ -93,9 +95,9 @@ namespace AcademyApi.Migrations
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserToBooks_BookTitle",
+                name: "IX_UserToBooks_BookId",
                 table: "UserToBooks",
-                column: "BookTitle");
+                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserToBooks_UserEmail",

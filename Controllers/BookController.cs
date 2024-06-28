@@ -51,12 +51,11 @@ public class BookController : ControllerBase
             LastName = book.Author.LastName,
         };
         await _authorRepository.CreateNewAuthor(newAuthor, book);
-        int authorId = newAuthor.Id;
-        book.AuthorId = authorId;
+        book.AuthorId = newAuthor.Id;
         book.Author = newAuthor;
         await _repository.CreateNewBook(book);
 
-        return  CreatedAtAction(nameof(GetByTitle), new { title = book.Title }, book);
+        return  CreatedAtAction(nameof(GetByTitle), new { id= book.Id }, book);
     }
     /*
     [HttpDelete("{title}")]

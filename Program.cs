@@ -21,7 +21,7 @@ builder.Services.AddDbContext<DataContext>(optionsBuilder =>
     {
         var connectionString = builder.Configuration.GetConnectionString("DataContext");
         optionsBuilder
-            .UseNpgsql(connectionString);
+            .UseNpgsql(connectionString).LogTo(Console.WriteLine);
     },
     ServiceLifetime.Scoped,
     ServiceLifetime.Singleton

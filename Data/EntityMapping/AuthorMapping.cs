@@ -17,10 +17,6 @@ public class AuthorMapping : IEntityTypeConfiguration<Author>
             .HasColumnType("varchar")
             .HasMaxLength(30);
 
-        builder.Property(author => author.MiddleName)
-            .HasColumnType("varchar")
-            .HasMaxLength(30);
-
         builder.Property(author => author.LastName)
             .IsRequired()
             .HasColumnType("varchar")

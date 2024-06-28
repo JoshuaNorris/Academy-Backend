@@ -22,6 +22,7 @@ public class DataContext : DbContext
     {
         optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=academy;Username=postgres;Password=jmnj;");
         base.OnConfiguring(optionsBuilder);
+        optionsBuilder.EnableSensitiveDataLogging();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

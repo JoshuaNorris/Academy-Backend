@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AcademyApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240626160132_AddingIDFieldtoBooks")]
-    partial class AddingIDFieldtoBooks
+    [Migration("20240628183035_DeletingMiddleName")]
+    partial class DeletingMiddleName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,10 +39,6 @@ namespace AcademyApi.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar");
-
-                    b.Property<string>("MiddleName")
                         .HasMaxLength(30)
                         .HasColumnType("varchar");
 

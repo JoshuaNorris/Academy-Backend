@@ -420,3 +420,6 @@ C:\Users\Josh\Desktop\AcademyApi\obj\Debug\net8.0\refint\AcademyApi.dll
 C:\Users\Josh\Desktop\AcademyApi\obj\Debug\net8.0\AcademyApi.pdb
 C:\Users\Josh\Desktop\AcademyApi\obj\Debug\net8.0\AcademyApi.genruntimeconfig.cache
 C:\Users\Josh\Desktop\AcademyApi\obj\Debug\net8.0\ref\AcademyApi.dll
+C:\Users\Josh\Desktop\AcademyApi\bin\Debug\net8.0\Serilog.dll
+C:\Users\Josh\Desktop\AcademyApi\bin\Debug\net8.0\Serilog.Sinks.Console.dll
+C:\Users\Josh\Desktop\AcademyApi\bin\Debug\net8.0\Serilog.Sinks.File.dll

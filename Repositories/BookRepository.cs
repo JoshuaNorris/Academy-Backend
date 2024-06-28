@@ -13,7 +13,7 @@ public interface IBookRepository
 {
     Task<IEnumerable<Book>> GetAllBooks();
     Task<Book?> GetByTitle(string title);
-    Task<bool> CreateNewBook(Book book);
+    Task CreateNewBook(Book book);
     Task<bool> RemoveBook(string title);
     Task<bool> ChangeDescription(string title, string description);
     //Get description
@@ -39,13 +39,10 @@ public class BookRepository : IBookRepository
         return await _context.Books.SingleOrDefaultAsync(book => book.Title == title);
     }
 
-    public async Task<bool> CreateNewBook(Book book)
+    public async Task CreateNewBook(Book book, Author author)
     {
-        // Because of how I am calling it in the controller I am assuming this Author has been added to the DB
-        //book.Author = author;
         await _context.Books.AddAsync(book);
         await _context.SaveChangesAsync();
-        return true;
     }
     
     public async Task<bool> RemoveBook(string title)

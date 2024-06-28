@@ -1,13 +1,10 @@
-1. Need to finish the put method for book/author
+Get this duplicate error figured out
 
-Finish book repository class
-- Currently getting an error that I think is connected to returning an Author type in my get method... It might also be because the data in the db is outdated to work with the author type.
-
-Finish Repository classes for Author, Book
-
-Get rid of warnings
-
-Waiting to get into test class a little before creating Tests for User, Author, book
+Right now I think that there are twe insert queries being committed
 
 
-Waiting until finishing many-to-many video to do anything with UserToBook
+      DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+
+      thought that might help to see...
+
+Might be worth just lookingi through an example of someone doing this.

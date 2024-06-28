@@ -39,10 +39,6 @@ namespace AcademyApi.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("varchar");
 
-                    b.Property<string>("MiddleName")
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar");
-
                     b.HasKey("Id");
 
                     b.ToTable("Authors");

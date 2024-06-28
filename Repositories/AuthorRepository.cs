@@ -44,7 +44,6 @@ public class AuthorRepository : IAuthorRepository
 
     public async Task<bool> CreateNewAuthor(Author author, Book book)
     {
-        
         author.Books.Add(book);
         if (await GetByName(author.FirstName, author.LastName) != null)
             return true;

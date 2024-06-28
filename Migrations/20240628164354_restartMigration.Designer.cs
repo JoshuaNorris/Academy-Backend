@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AcademyApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240626154551_AddingiAuthorIDtoBook")]
-    partial class AddingiAuthorIDtoBook
+    [Migration("20240628164354_restartMigration")]
+    partial class restartMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,9 +53,11 @@ namespace AcademyApi.Migrations
 
             modelBuilder.Entity("AcademyApi.Models.Book", b =>
                 {
-                    b.Property<string>("Title")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("integer");
@@ -65,7 +67,12 @@ namespace AcademyApi.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("varchar");
 
-                    b.HasKey("Title");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
@@ -114,9 +121,8 @@ namespace AcademyApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BookTitle")
-                        .IsRequired()
-                        .HasColumnType("varchar");
+                    b.Property<int>("BookId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
@@ -124,7 +130,7 @@ namespace AcademyApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookTitle");
+                    b.HasIndex("BookId");
 
                     b.HasIndex("UserEmail");
 
@@ -146,7 +152,7 @@ namespace AcademyApi.Migrations
                 {
                     b.HasOne("AcademyApi.Models.Book", "Book")
                         .WithMany("UserToBooks")
-                        .HasForeignKey("BookTitle")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
