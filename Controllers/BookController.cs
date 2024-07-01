@@ -45,17 +45,19 @@ public class BookController : ControllerBase
     [ProducesResponseType(typeof(Book), StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateNewBook([FromBody] Book book)
     {
-        var newAuthor = new Author
-        {
+
+        Author author = new Author {
             FirstName = book.Author.FirstName,
             LastName = book.Author.LastName,
         };
-        await _authorRepository.CreateNewAuthor(newAuthor, book);
-        book.AuthorId = newAuthor.Id;
-        book.Author = newAuthor;
+
+        book.AuthorId = await _authorRepository.CreateNewAuthor(book.Author); 
+        book.Author = author;
+        author.Books.Add(book);
+
         await _repository.CreateNewBook(book);
 
-        return  CreatedAtAction(nameof(GetByTitle), new { id= book.Id }, book);
+        return CreatedAtAction(nameof(GetByTitle), new { title = book.Title }, book);
     }
     /*
     [HttpDelete("{title}")]

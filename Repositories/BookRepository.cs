@@ -39,7 +39,7 @@ public class BookRepository : IBookRepository
         return await _context.Books.SingleOrDefaultAsync(book => book.Title == title);
     }
 
-    public async Task CreateNewBook(Book book, Author author)
+    public async Task CreateNewBook(Book book)
     {
         await _context.Books.AddAsync(book);
         await _context.SaveChangesAsync();

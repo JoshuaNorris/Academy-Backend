@@ -8,18 +8,17 @@ public class AuthorMapping : IEntityTypeConfiguration<Author>
 {
     public void Configure(EntityTypeBuilder<Author> builder)
     {
-
         builder
             .HasKey(Author => Author.Id);
 
         builder.Property(author => author.FirstName)
             .IsRequired()
             .HasColumnType("varchar")
-            .HasMaxLength(30);
+            .HasMaxLength(60);
 
         builder.Property(author => author.LastName)
             .IsRequired()
             .HasColumnType("varchar")
-            .HasMaxLength(30);
+            .HasMaxLength(60);
     }
 }

@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AcademyApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240628164354_restartMigration")]
-    partial class restartMigration
+    [Migration("20240701194756_AddingAuthorBook")]
+    partial class AddingAuthorBook
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,16 +34,12 @@ namespace AcademyApi.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(30)
+                        .HasMaxLength(60)
                         .HasColumnType("varchar");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar");
-
-                    b.Property<string>("MiddleName")
-                        .HasMaxLength(30)
+                        .HasMaxLength(60)
                         .HasColumnType("varchar");
 
                     b.HasKey("Id");
@@ -127,6 +123,9 @@ namespace AcademyApi.Migrations
                     b.Property<string>("UserEmail")
                         .IsRequired()
                         .HasColumnType("varchar");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

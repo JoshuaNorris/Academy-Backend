@@ -8,11 +8,13 @@ namespace AcademyApi.Models;
 #pragma warning disable CS8618
 public class Author
 {
+
     public int Id { get; set; }
     public string FirstName { get; set; }
+
     public string LastName { get; set; }
 
-    // The JSON Ignore is here because I should be accessing this through books.
     [JsonIgnore]
     public ICollection<Book> Books { get; set; } = new HashSet<Book>();
+
 }

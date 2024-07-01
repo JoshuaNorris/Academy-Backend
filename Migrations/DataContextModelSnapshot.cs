@@ -31,12 +31,12 @@ namespace AcademyApi.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(30)
+                        .HasMaxLength(60)
                         .HasColumnType("varchar");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(30)
+                        .HasMaxLength(60)
                         .HasColumnType("varchar");
 
                     b.HasKey("Id");
@@ -120,6 +120,9 @@ namespace AcademyApi.Migrations
                     b.Property<string>("UserEmail")
                         .IsRequired()
                         .HasColumnType("varchar");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

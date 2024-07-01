@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AcademyApi.Migrations
 {
     /// <inheritdoc />
-    public partial class restartMigration : Migration
+    public partial class AddingAuthorBook : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,9 +17,8 @@ namespace AcademyApi.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstName = table.Column<string>(type: "varchar", maxLength: 30, nullable: false),
-                    MiddleName = table.Column<string>(type: "varchar", maxLength: 30, nullable: true),
-                    LastName = table.Column<string>(type: "varchar", maxLength: 30, nullable: false)
+                    FirstName = table.Column<string>(type: "varchar", maxLength: 60, nullable: false),
+                    LastName = table.Column<string>(type: "varchar", maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,6 +69,7 @@ namespace AcademyApi.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserEmail = table.Column<string>(type: "varchar", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
                     BookId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>

@@ -12,10 +12,7 @@ namespace AcademyApi.Repositories;
 public interface IAuthorRepository
 {
     Task<IEnumerable<Author>> GetAllAuthors();
-    Task<Author?> GetByName(string firstName, string lastName);
-    Task<bool> CheckAuthorExists(string firstName, string lastName);
-    Task<bool> CreateNewAuthor(Author author, Book book);
-    //Task<bool> RemoveAuthor(string firstName, string lastName);
+    Task<int> CreateNewAuthor (Author author);
 }
 
 public class AuthorRepository : IAuthorRepository
@@ -29,27 +26,14 @@ public class AuthorRepository : IAuthorRepository
 
     public async Task<IEnumerable<Author>> GetAllAuthors()
     {
-        return await _context.Authors.ToListAsync();
+        return await _context.Authors
+            .ToListAsync();
     }
 
-    public async Task<Author?> GetByName(string firstName, string lastName)
+    public async Task<int> CreateNewAuthor(Author author)
     {
-        return await _context.Authors.SingleOrDefaultAsync(author => author.FirstName == firstName && author.LastName == lastName);
-    }
-
-    public async Task<bool> CheckAuthorExists(string firstName, string lastName)
-    {
-        return await _context.Authors.SingleOrDefaultAsync(author => author.FirstName == firstName && author.LastName == lastName) != null;
-    }
-
-    public async Task<bool> CreateNewAuthor(Author author, Book book)
-    {
-        author.Books.Add(book);
-        if (await GetByName(author.FirstName, author.LastName) != null)
-            return true;
-
         await _context.Authors.AddAsync(author);
         await _context.SaveChangesAsync();
-        return true;
+        return author.Id;
     }
 }
