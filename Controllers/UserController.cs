@@ -62,7 +62,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> AttemptLogin([FromBody] LoginRequest loginRequest)
     {
-        User? user = await _repository.AttemptLogin(loginRequest.Email, loginRequest.Password);
+        LoginResponse? user = await _repository.AttemptLogin(loginRequest.Email, loginRequest.Password);
         return user == null ? NotFound() : Ok(user);
     }
 
@@ -70,13 +70,13 @@ public class UserController : ControllerBase
     [HttpPut("changePassword")]
     [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
-    {
-        bool changeAttempt = await _repository.ChangePassword(request.Email, request.OldPassword, request.NewUnhashedPassword);
-        if (changeAttempt)
-            return Ok();
-        else return NotFound();
-    }
+    // public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+    // {
+    //     bool changeAttempt = await _repository.ChangePassword(request.Email, request.OldPassword, request.NewUnhashedPassword);
+    //     if (changeAttempt)
+    //         return Ok();
+    //     else return NotFound();
+    // }
 
 
     /*
@@ -116,8 +116,8 @@ public class UserController : ControllerBase
 
 public class LoginRequest
 {
-    public string? Email { get; set; }
-    public string? Password { get; set; }
+    public required string Email { get; set; }
+    public required string Password { get; set; }
 }
 
 public class ChangePasswordRequest

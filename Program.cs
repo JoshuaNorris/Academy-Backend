@@ -17,11 +17,24 @@ builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IBookRepository, BookRepository>();
 builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
 
+// Add CORS policy
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("CorsPolicy", builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+    });
+
+
 builder.Services.AddDbContext<DataContext>(optionsBuilder =>
     {
         var connectionString = builder.Configuration.GetConnectionString("DataContext");
         optionsBuilder
-            .UseNpgsql(connectionString).LogTo(Console.WriteLine);
+            .UseNpgsql(connectionString);
+            // .UseNpgsql(connectionString).LogTo(Console.WriteLine);
     },
     ServiceLifetime.Scoped,
     ServiceLifetime.Singleton
@@ -47,6 +60,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("CorsPolicy");
 
 app.MapControllers();
 

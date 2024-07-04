@@ -17,9 +17,9 @@ public interface IUserRepository
     Task CreateUser(User user);
     string HashPassword(string password);
     bool VerifyPassword(string givenPassword, string hashedPassword);
-    Task<User?> AttemptLogin(string email, string hashedPassword);
+    Task<LoginResponse?> AttemptLogin(string email, string hashedPassword);
     Task<bool> DeleteUser(string email);
-    Task<bool> ChangePassword(string email, string oldPassword, string newPassword);
+    // Task<bool> ChangePassword(string email, string oldPassword, string newPassword);
 }
 
 public class UserRepository : IUserRepository
@@ -38,9 +38,22 @@ public class UserRepository : IUserRepository
             .ToListAsync();
     }
 
-    public async Task<User?> GetByEmail(string email)
+    public async Task<User> GetByEmail(string email)
     {
-        return await _context.Users.SingleOrDefaultAsync(m => m.Email == email);
+        try
+        {
+            // Use SingleOrDefaultAsync to retrieve a user by email
+            User user = await _context.Users
+                .SingleOrDefaultAsync(user => user.Email == email);
+
+            return user;
+        }
+        catch (Exception ex)
+        {
+            // Handle any exceptions according to your application's needs
+            Console.WriteLine($"Error fetching user by email: {ex.Message}");
+            throw; // or handle the exception gracefully
+        }
     }
 
     public async Task CreateUser(User user)
@@ -60,14 +73,36 @@ public class UserRepository : IUserRepository
         return BCrypt.Net.BCrypt.Verify(givenPassword, hashedPassword);
     }
 
-    public async Task<User?> AttemptLogin(string email, string password)
+    public async Task<LoginResponse?> AttemptLogin(string email, string password)
     {
+        // Ensure GetByEmail(email) returns a valid User or null
         User? user = await GetByEmail(email);
-        bool verify = VerifyPassword(password, user.HashedPassword);
-        if (user != null && verify)
-        {
-            return user;
+        if (user == null)
+        {    
+            return null;
         }
+        
+        // Check if user.HashedPassword is not null before using it
+        if (user.HashedPassword == null)
+        {
+            return null;
+        }
+
+        // Verify the password
+        bool verify = VerifyPassword(password, user.HashedPassword);
+        if (verify)
+        {
+            LoginResponse response = new LoginResponse
+            {
+                Email = user.Email,
+                DisplayName = user.DisplayName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserRole = user.UserRole
+            };
+            return response;
+        }
+
         return null;
     }
 
@@ -84,16 +119,16 @@ public class UserRepository : IUserRepository
         return true;
     }
 
-    public async Task<bool> ChangePassword(string email, string oldPassword, string newPassword)
-    {
-        User user = await AttemptLogin(email, oldPassword);
-        if (user == null)
-            return false;
+    // public async Task<bool> ChangePassword(string email, string oldPassword, string newPassword)
+    // {
+    //     User user = await AttemptLogin(email, oldPassword);
+    //     if (user == null)
+    //         return false;
 
-        user.HashedPassword = HashPassword(newPassword);
+    //     user.HashedPassword = HashPassword(newPassword);
 
-        await _context.SaveChangesAsync();
+    //     await _context.SaveChangesAsync();
        
-        return true;
-    }
+    //     return true;
+    // }
 }

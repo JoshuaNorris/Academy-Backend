@@ -24,3 +24,13 @@ public enum UserRole
     Student,
     Administrator
 }
+
+public class LoginResponse
+{
+    
+    public string Email { get; set; }
+    public string DisplayName { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public UserRole UserRole { get; set; }
+}
