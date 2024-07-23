@@ -1,10 +1,1 @@
-Get this duplicate error figured out
-
-Right now I think that there are twe insert queries being committed
-
-
-      DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
-
-      thought that might help to see...
-
-Might be worth just lookingi through an example of someone doing this.
+register functionality

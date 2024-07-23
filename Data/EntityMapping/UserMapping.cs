@@ -14,12 +14,7 @@ public class UserMapping: IEntityTypeConfiguration<User>
         builder.Property(user => user.Email)
             .IsRequired()
             .HasColumnType("varchar")
-            .HasMaxLength(255);
-
-        builder.Property(user => user.DisplayName)
-            .IsRequired()
-            .HasColumnType("varchar")
-            .HasMaxLength(30);
+            .HasMaxLength(256);
 
         builder.Property(user => user.FirstName)
             .IsRequired()
@@ -31,13 +26,14 @@ public class UserMapping: IEntityTypeConfiguration<User>
             .HasColumnType("varchar")
             .HasMaxLength(30);
 
-        builder.Property(user => user.HashedPassword)
+        builder.Property(user => user.UserName)
+            .IsRequired()
+            .HasColumnType("varchar")
+            .HasMaxLength(30);
+
+        builder.Property(user => user.Password)
             .IsRequired()
             .HasColumnType("char")
             .HasMaxLength(60);
-
-        builder.Property(user => user.UserRole)
-            .IsRequired()
-            .HasColumnType("smallint");
     }
 }

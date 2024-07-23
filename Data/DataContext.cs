@@ -14,9 +14,6 @@ public class DataContext : DbContext
     }
 
     public DbSet<User> Users => Set<User>();
-    public DbSet<Book> Books => Set<Book>();
-    public DbSet<Author> Authors => Set<Author>();
-    public DbSet<UserToBook> UserToBooks => Set<UserToBook>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -28,9 +25,6 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserMapping());
-        modelBuilder.ApplyConfiguration(new BookMapping());
-        modelBuilder.ApplyConfiguration(new UserToBookMapping());
-        modelBuilder.ApplyConfiguration(new AuthorMapping());
     }
 
 }

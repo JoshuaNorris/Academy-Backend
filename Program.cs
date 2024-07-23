@@ -14,8 +14,6 @@ builder.Services.AddSwaggerGen();
 
 // This is for my Repository classes
 builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<IBookRepository, BookRepository>();
-builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
 
 // Add CORS policy
 builder.Services.AddCors(options =>

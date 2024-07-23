@@ -1,0 +1,13 @@
+Create Model
+add repository to program.cs
+datacontext
+	- Add DBSet
+	- apply configuration to mapping
+
+Create data mapping
+
+
+
+
+Create Controller
+create repository

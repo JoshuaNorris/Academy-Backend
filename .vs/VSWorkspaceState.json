@@ -2,8 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\Controllers",
+    "\\Data",
+    "\\Data\\EntityMapping",
+    "\\Migrations",
+    "\\Models",
     "\\Repositories"
   ],
-  "SelectedNode": "\\Todo.txt",
+  "SelectedNode": "\\Models\\User.cs",
   "PreviewInSolutionExplorer": false
 }
